@@ -8,31 +8,31 @@ const client = new MongoClient(uri, { useNewUrlParser: true });
 const dbName = "fruitsdb";
 const colName = "fruits";
 
+client.connect(err => {
+  // perform actions on the collection object
+});
+
+var getAllFruits = function(cb) {
+        client.db(dbName).collection(colName).find().toArray(cb);
+    }
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
 router.get('/fruits', function(req, res) {
-  var value;
-  client.connect(err => {
-    // perform actions on the collection object
-
-    var collection = client.db("fruitsdb").collection("fruits");
-    var result = collection.find();
-
-    result.each(function(err, item) {
-      if(item != null) {
-        value += item.name;
+    getAllFruits(function(err, result) {
+      if(result) {
+        res.jsonp(result);
       }
+    })
 
-    });
-    client.close();
   });
 
-    res.send(value);
 
-})
+
+
 
 
 module.exports = router;
