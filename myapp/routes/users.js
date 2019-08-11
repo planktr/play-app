@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://charlottekam:apptesting1@playapp-bkrcp.mongodb.net/test?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true });
@@ -14,7 +15,7 @@ client.connect(err => {
 
 var getAllFruits = function(cb) {
         client.db(dbName).collection(colName).find().toArray(cb);
-    }
+}
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -29,10 +30,5 @@ router.get('/fruits', function(req, res) {
     })
 
   });
-
-
-
-
-
 
 module.exports = router;

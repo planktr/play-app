@@ -15,7 +15,6 @@ const client = new MongoClient(uri, { useNewUrlParser: true });
 const dbName = "fruitsdb";
 const colName = "fruits";
 
-
 client.connect(err => {
   // perform actions on the collection object
 });
