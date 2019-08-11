@@ -1,13 +1,20 @@
-import { useRouter } from 'next/router';
 import Layout from '../../components/layout';
+import Fetch from 'isomorphic-unfetch';
 
-export default function Post() {
-  const router = useRouter();
+const Post = props => (
+  <Layout>
+    <h1>{props.name}</h1>
+  </Layout>
+);
 
-  return (
-    <Layout>
-      <h1>{router.query.id}</h1>
-      <p>This is the blog post content.</p>
-    </Layout>
-  );
-}
+Post.getInitialProps = async function(context) {
+  const { id } = context.query;
+  const res = await fetch(`https://localhost:4040/users/fruits`);
+  const fruits = await res.json();
+
+  console.log(`Fetched fruits: ${name}`);
+
+  return { fruits };
+};
+
+export default Post;
