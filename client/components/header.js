@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 const linkStyle = {
+  fontFamily: 'Verdana, sans-serif',
   marginRight: 15
 };
 

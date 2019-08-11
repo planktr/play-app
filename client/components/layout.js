@@ -13,7 +13,6 @@ const Layout = properties => (
   <div style={layoutStyle}>
     <Header />
     {properties.children}
-    <Footer />
   </div>
 
 );
