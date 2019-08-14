@@ -1,18 +1,22 @@
 import Layout from '../components/layout';
 import Link from 'next/link';
-import Fetch from 'isomorphic-unfetch';
+import fetch from 'isomorphic-unfetch';
 
+const FruitsLink = ({ name }) => (
+  <li>
+    <Link href="/p/[name]" as={`/p/${name}`}>
+      <a>{name}</a>
+    </Link>
+  </li>
+);
 
-const Index = props => (
+export default function MonkeySpaghet(props) {
+  return(
   <Layout>
     <h1>Fruits</h1>
     <ul>
       {props.name.map(name => (
-        <li key={name}>
-          <Link href="/p/[name]" as={`/p/${name}`}>
-            <a>{name}</a>
-          </Link>
-        </li>
+        <FruitsLink key={name} name = {name}/>
       ))}
     </ul>
     <style jsx>{`
@@ -41,17 +45,15 @@ const Index = props => (
     `}</style>
   </Layout>
 );
+}
 
-
-Index.getInitialProps = async function() {
+MonkeySpaghet.getInitialProps = async function() {
   const res = await fetch('http://localhost:4040/fruits');
-  const data = await res.json();
+  const fruits = await res.json();
 
-  console.log(`Show data fetched. Count: ${data.length}`);
+  console.log(`Show data fetched. Count: ${fruits.length}`);
 
   return {
-    name: data.map(entry => entry.name)
+    name: fruits.map(entry => entry.name)
   };
 };
-
-export default Index;
