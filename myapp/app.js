@@ -11,13 +11,11 @@ var app = express();
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://charlottekam:apptesting1@playapp-bkrcp.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
+var client = new MongoClient(uri, { useNewUrlParser: true });
 const dbName = "fruitsdb";
 const colName = "fruits";
 
-client.connect(err => {
-  // perform actions on the collection object
-});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,8 +29,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/fruits', fruitsRouter);
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -50,4 +46,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+
+module.exports = { app: app, client: client };
